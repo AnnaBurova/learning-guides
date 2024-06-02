@@ -52,7 +52,7 @@ $ErrorActionPreference = 'Continue'
 Write-Host ""
 
 # Scenario:
-#     Handling PowerShell cmdlet errors using try / catch
+#     Handling PowerShell cmdlet errors using try / catch.
 #     Most cmdlets produce non-terminating errors by default.
 #     To trigger a 'catch' block, promote the error to
 #     a terminating error by passing '-ErrorAction Stop'.
@@ -77,12 +77,13 @@ catch {
 
 Write-Host ""
 
-Write-Host "LASTEXITCODE before reset: $LASTEXITCODE" -ForegroundColor Yellow
+# Scenario:
+#     Resetting $LASTEXITCODE.
+#     $LASTEXITCODE is an automatic, read-only variable
+#     that holds the exit code of the last external (non-PowerShell) command.
+#     It cannot be set directly (e.g. '$LASTEXITCODE = 0' has no effect).
 
-# Reset $LASTEXITCODE to 0 by running a harmless external command.
-# $LASTEXITCODE is an automatic, read-only variable
-# that holds the exit code of the last external (non-PowerShell) command.
-# It cannot be set directly (e.g. '$LASTEXITCODE = 0' has no effect).
+Write-Host "LASTEXITCODE before reset: $LASTEXITCODE" -ForegroundColor Yellow
 
 # To reset it, run an external command that exits with code 0.
 # This updates $LASTEXITCODE while allowing the script to continue executing.
@@ -98,7 +99,7 @@ Write-Host "LASTEXITCODE  after reset: $LASTEXITCODE" -ForegroundColor Yellow
 Write-Host ""
 
 # Scenario:
-#     Handling errors from external executables (Git, Python, Node, etc.)
+#     Handling errors from external executables (Git, Python, Node, etc.).
 #     External commands run as separate operating system processes
 #     outside the PowerShell engine.
 #     They do not generate native PowerShell error objects,
@@ -128,6 +129,7 @@ Write-Host ""
 #     'throw' generates a terminating error
 #     that stops execution or jumps to 'catch'.
 
+# Demonstrated using try / catch to keep output order predictable.
 try {
     if (-not $rootPath) {
         throw "Fatal: Root directory path is empty. Execution stopped."
@@ -137,11 +139,12 @@ catch {
     Write-Host "Caught: $($_.Exception.Message)" -ForegroundColor Red
 }
 
-Write-Host ""
-
-if (-not $rootPath) {
-    throw "Fatal: Root directory path is empty. Execution stopped."
-}
+# This throw is not caught and will stop the script.
+# Uncomment only if you want the script to terminate here.
+# if (-not $rootPath) {
+#     Write-Host ""
+#     throw "Fatal: Root directory path is empty. Execution stopped."
+# }
 
 # --------------------------------------------------------------------- ------- ------------------- --------------------
 
