@@ -153,3 +153,37 @@ catch {
 # --------------------------------------------------------------------- ------- ------------------- --------------------
 
 Write-Host ""
+Write-Host "# 5 " -ForegroundColor Cyan
+
+# Scenario:
+#     Get-Variable -Name missingVariable -ErrorAction SilentlyContinue
+#     If the requested variable does not exist, PowerShell displays an error.
+
+# Demonstrated using try / catch to keep output order predictable.
+try {
+    Get-Variable -Name missingVariable -ErrorAction Stop
+}
+catch {
+    Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Red
+}
+
+# Suppress the error with -ErrorAction SilentlyContinue.
+Write-Host "SilentlyContinue START"
+Get-Variable -Name missingVariable -ErrorAction SilentlyContinue
+Write-Host "SilentlyContinue END"
+
+# Test whether a variable exists without displaying an error.
+$variable = Get-Variable `
+    -Name missingVariable `
+    -ErrorAction SilentlyContinue
+
+if ($null -eq $variable) {
+    Write-Host "The variable missingVariable does not exist." -ForegroundColor Yellow
+}
+else {
+    Write-Host "The variable missingVariable exists." -ForegroundColor Green
+}
+
+# --------------------------------------------------------------------- ------- ------------------- --------------------
+
+Write-Host ""
