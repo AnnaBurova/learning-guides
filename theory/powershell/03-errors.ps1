@@ -50,6 +50,7 @@ $ErrorActionPreference = 'Continue'
 # --------------------------------------------------------------------- ------- ------------------- --------------------
 
 Write-Host ""
+Write-Host "# 1 " -ForegroundColor Cyan
 
 # Scenario:
 #     Handling PowerShell cmdlet errors using try / catch.
@@ -76,6 +77,7 @@ catch {
 # --------------------------------------------------------------------- ------- ------------------- --------------------
 
 Write-Host ""
+Write-Host "# 2 " -ForegroundColor Cyan
 
 # Scenario:
 #     Resetting $LASTEXITCODE.
@@ -97,6 +99,7 @@ Write-Host "LASTEXITCODE  after reset: $LASTEXITCODE" -ForegroundColor Yellow
 # --------------------------------------------------------------------- ------- ------------------- --------------------
 
 Write-Host ""
+Write-Host "# 3 " -ForegroundColor Cyan
 
 # Scenario:
 #     Handling errors from external executables (Git, Python, Node, etc.).
@@ -120,6 +123,7 @@ else {
 # --------------------------------------------------------------------- ------- ------------------- --------------------
 
 Write-Host ""
+Write-Host "# 4 " -ForegroundColor Cyan
 
 # Scenario:
 #     Explicitly raising a terminating error.
