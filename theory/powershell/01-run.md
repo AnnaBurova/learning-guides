@@ -168,3 +168,38 @@ Run the script normally to see colored output in the terminal:
 Use `Tee-Object` when you need to display the output
 and save a text log at the same time.
 The log file contains plain text rather than terminal color formatting.
+
+-------------------------------------------------------------------------------
+
+## Note about output order in the console
+
+When running a script without redirection (for example, `& '.\script.ps1'`),
+you may notice that some output appears in a different order
+than the commands in the script.
+For example:
+
+- `Write-Host` messages appear immediately.
+- Output from cmdlets like `Get-Variable` may appear later.
+- Error messages may appear at the end of the output.
+
+This happens because PowerShell uses multiple output streams:
+
+- Stream 1: Success output (for example, objects from `Get-Variable`).
+- Stream 2: Error output (error records from cmdlets).
+- Stream 6: Information output (`Write-Host`).
+
+These streams are buffered and rendered by the host independently.
+In some environments (for example, the VS Code integrated terminal),
+the visual order of these streams may not match
+the exact order of commands in the script.
+
+The script logic still executes sequentially from top to bottom.
+Only the visual order of mixed output in the console can differ.
+
+If you prefer a more predictable visual order:
+
+- Use `Format-List` or `Format-Table` to format object output explicitly.
+- Use `try / catch` with `-ErrorAction Stop` to control how errors are displayed.
+
+When output is redirected to a file (for example, with `*>&1 | Tee-Object`),
+all streams are merged into a single text stream.
