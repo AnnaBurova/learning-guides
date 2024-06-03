@@ -6,12 +6,17 @@ Create the following directory structure:
 
 ```
 dev-library/
+│
 ├── src/
 │   └── library/
 │       ├── __init__.py
-│       └── module.py
+│       ├── module.py
+│       └── (other files)
+│
 ├── tests/
-│   └── test_module.py
+│   ├── test_module.py
+│   └── (other test scripts)
+│
 ├── pyproject.toml
 ├── requirements.txt
 ├── LICENSE
