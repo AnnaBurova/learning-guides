@@ -1,26 +1,37 @@
+```text
+Created on 2024-06
+
+@author: NewtCode Anna Burova
+```
+
 # Create a Python Library from Scratch
 
 ## Project Structure
 
 Create the following directory structure:
 
-```
-dev-library/
+```text
+dev-library/              # Root repository
 │
 ├── src/
-│   └── library/
+│   └── library/          # Main Python package (module source)
 │       ├── __init__.py
 │       ├── module.py
 │       └── (other files)
 │
-├── tests/
+├── tests/                # Manual and automated test scripts
+│   │
+│   ├── TESTING.md        # Test documentation and instructions
+│   ├── __init__.py       # Marks tests as a package
 │   ├── test_module.py
+│   ├── test_*.py         # Pytest test scripts for modules
+│   ├── test_*_*.py       # Pytest test scripts for functions
 │   └── (other test scripts)
 │
-├── pyproject.toml
-├── requirements.txt
-├── LICENSE
-└── README.md
+├── LICENSE               # License file
+├── pyproject.toml        # Build system configuration and project metadata
+├── requirements.txt      # Project dependencies
+└── README.md             # Project overview and usage instructions
 ```
 
 **Key points:**
@@ -31,13 +42,15 @@ dev-library/
 
 ## Requirements
 
+Try to support the following Python versions:
+
+- Python 3.15
 - Python 3.14
 - Python 3.13
 - Python 3.12
 - Python 3.11
-- Python 3.10
 
-Other dependencies are listed in `requirements.txt`.
+Other dependencies list in `requirements.txt`.
 
 ## Examples of Library Code
 
@@ -51,15 +64,15 @@ Other dependencies are listed in `requirements.txt`.
 
 Install build tools:
 
-```bash
-$ pip install build twine
+```pwsh
+PS> pip install build twine
 ```
 
 Build the package:
 
-```bash
-$ cd dev-library/
-$ python -m build
+```pwsh
+PS> cd dev-library/
+PS> python -m build
 
 Successfully built dev_library-0.1.0.tar.gz and dev_library-0.1.0-py3-none-any.whl
 ```
@@ -68,8 +81,8 @@ This creates `.tar.gz` (source distribution) and `.whl` (wheel) files in the `di
 
 To inspect the contents of the source distribution without extracting:
 
-```bash
-$ tar -tzf dist/dev_library-0.1.0.tar.gz
+```pwsh
+PS> tar -tzf dist/dev_library-0.1.0.tar.gz
 ```
 
 This lists all files that will be included. Use this to verify:
@@ -86,8 +99,8 @@ exclude = []
 
 To extract the archive for manual inspection:
 
-```bash
-$ tar -xzf dist/dev_library-0.1.0.tar.gz
+```pwsh
+PS> tar -xzf dist/dev_library-0.1.0.tar.gz
 ```
 
 ## Test on TestPyPI (Recommended)
@@ -111,17 +124,17 @@ Save it in a password manager or secure note.
 
 ### Step 2: Upload Your Package to TestPyPI
 
-```bash
-$ cd dev-library/
-$ twine upload --repository testpypi dist/*
+```pwsh
+PS> cd dev-library/
+PS> twine upload --repository testpypi dist/*
 ```
 
 Enter your API token when prompted.
 
 ### Step 3: Install and Test from TestPyPI
 
-```bash
-$ pip install --index-url https://test.pypi.org/simple/ dev-library
+```pwsh
+PS> pip install --index-url https://test.pypi.org/simple/ library
 ```
 
 Verify that:
@@ -149,9 +162,9 @@ Save it in a password manager or secure note.
 
 ### Step 2: Upload Your Package to PyPI
 
-```bash
-$ cd dev-library/
-$ twine upload dist/*
+```pwsh
+PS> cd dev-library/
+PS> twine upload dist/*
 ```
 
 Enter your API token when prompted.
@@ -169,6 +182,6 @@ Enter your API token when prompted.
 
 Anyone can now install your package:
 
-```bash
-$ pip install dev-library
+```pwsh
+PS> pip install library
 ```
