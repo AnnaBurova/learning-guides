@@ -1,52 +1,53 @@
+```text
+Created on 2024-06
+
+@author: NewtCode Anna Burova
+```
+
 # PowerShell Guide
 
-## Script location
+## Running a Script
 
-Save the script in the folder: D:\VS_Code.
-It can be run from any PowerShell working directory.
+In this example, `D:\VS_Code` is used as the working folder to demonstrate absolute paths.
 
--------------------------------------------------------------------------------
+A script can be run by its full path from any PowerShell working directory.
 
-## Running the script
+Run the script by its full path:
 
-Run the script by its full path
-
-```powershell
-& 'D:\VS_Code\script_powershell.ps1'
+```pwsh
+PS> & 'D:\VS_Code\script_powershell.ps1'
 ```
 
-Change to the script directory and run the script directly
+Change to the script directory and run the script directly:
 
-```powershell
-PS D:\VS_Code> .\script_powershell.ps1
+```pwsh
+PS> & '.\script_powershell.ps1'
 ```
 
--------------------------------------------------------------------------------
+## Script Execution Modes
 
-## Dot-sourcing the script
-
-```powershell
-. 'D:\VS_Code\script_powershell.ps1'
-```
+### Dot-Sourcing
 
 The dot followed by a space is the **dot-sourcing operator**.
 
-Dot-sourcing runs the script in the current PowerShell scope.
+```pwsh
+PS> . 'D:\VS_Code\script_powershell.ps1'
+```
+
+Dot-sourcing runs a script in the current PowerShell scope.
 Variables and functions created by the script remain available
 in the current PowerShell session after the script finishes.
 
 Use dot-sourcing when a script is intended to load functions,
 aliases, variables, or configuration into the current session.
 
--------------------------------------------------------------------------------
-
-## Call operator
-
-```powershell
-& 'D:\VS_Code\script_powershell.ps1'
-```
+### Call Operator
 
 The ampersand (`&`) is the **call operator**.
+
+```pwsh
+PS> & 'D:\VS_Code\script_powershell.ps1'
+```
 
 It runs the script normally in its own script scope.
 Variables created by the script do not remain available
@@ -55,25 +56,34 @@ in the current PowerShell session after the script finishes.
 Use the call operator for scripts that perform an operation and
 should not leave their internal variables or functions in the current session.
 
--------------------------------------------------------------------------------
+## Scope Differences
 
-## Dot-sourcing vs. normal execution
+### Dot-Sourcing
 
-| Command | Execution scope | Variables remain available? |
-| --- | --- | ---: |
-| `. 'D:\VS_Code\script_powershell.ps1'` | Current PowerShell scope | Yes |
-| `. .\script_powershell.ps1` | Current PowerShell scope | Yes |
-| `& 'D:\VS_Code\script_powershell.ps1'` | Script scope | No |
-| `.\script_powershell.ps1` | Script scope | No |
+```pwsh
+PS> . 'D:\VS_Code\script_powershell.ps1'
+PS> . '.\script_powershell.ps1'
+```
 
--------------------------------------------------------------------------------
+- Runs in the current PowerShell console scope.
+- Variables remain available after the script finishes.
 
-## Saving output to a log file
+### Call Operator
+
+```pwsh
+PS> & 'D:\VS_Code\script_powershell.ps1'
+PS> & '.\script_powershell.ps1'
+PS> .\script_powershell.ps1
+```
+
+- Runs in the scripts own scope.
+- Variables created inside the script are not available outside it.
+
+## Saving Output to a Log File
 
 ### `*>&1`
 
-Redirection operator merges all PowerShell output streams
-into the success output stream.
+The redirection operator `*>&1` merges all PowerShell output streams into the success output stream.
 
 This includes:
 
@@ -86,120 +96,111 @@ This includes:
 
 ### `Tee-Object`
 
-Displays the output in the console and writes the same output to a file.
+The `Tee-Object` displays the output in the console and writes the same output to a file.
 
 The name comes from the Unix `tee` command and refers to a T-shaped split:
 one input is sent to two outputs.
 
 ### `-FilePath`
 
-This parameter specifies the path and name of the log file.
+The `-FilePath` parameter specifies the path and name of the log file.
 
 ### Run from `D:\VS_Code`
 
-```powershell
-.\script_powershell.ps1 *>&1 | Tee-Object -FilePath .\script_powershell_output.txt
+```pwsh
+PS> & '.\script_powershell.ps1' *>&1 | Tee-Object -FilePath '.\script_powershell_output.log'
 ```
 
 This creates the log file in the current PowerShell working directory.
 
 ### Run from any working directory
 
-```powershell
-& 'D:\VS_Code\script_powershell.ps1' *>&1 | Tee-Object -FilePath 'D:\VS_Code\script_powershell_output.txt'
+```pwsh
+PS> & 'D:\VS_Code\script_powershell.ps1' *>&1 | Tee-Object -FilePath 'D:\VS_Code\script_powershell_output.log'
 ```
 
-This always writes the log file to `D:\VS_Code`
-because the log path is absolute.
+This always writes the log file to `D:\VS_Code` because the log path is absolute.
 
--------------------------------------------------------------------------------
-
-## Silent file redirection
-
-Redirects all streams into a file without printing to the terminal:
-
-```powershell
-# Overwrite the log file
-.\script_powershell.ps1 *> '.\script_powershell.log'
-
-# Append to the log file
-.\script_powershell.ps1 *>> '.\script_powershell.log'
-```
-
-The operator `*>` captures all six PowerShell output streams
-directly into the target document.
-
--------------------------------------------------------------------------------
-
-## Session transcription (`Start-Transcript`)
-
-Records everything occurring during script execution,
-including native commands, pipeline data, errors,
-and `Write-Host` output.
-
-Place these commands at the beginning and end of the script:
-
-```powershell
-# At the very start of the script
-Start-Transcript -Path 'D:\VS_Code\script_powershell.log' -Append
-
-# Script logic
-
-# At the very end of the script
-Stop-Transcript
-```
-
-- Output displays normally in the console while being appended to the log file.
-- Automatically writes a header with timestamps, user credentials,
-and PowerShell version details.
-
--------------------------------------------------------------------------------
-
-## Important note about colors
+### Important Note About Colors
 
 > **Warning:** `Write-Host` colors are not preserved when output is redirected through `*>&1` and `Tee-Object`.
 
 Run the script normally to see colored output in the terminal:
 
-```powershell
-& 'D:\VS_Code\script_powershell.ps1'
+```pwsh
+PS> & 'D:\VS_Code\script_powershell.ps1'
 ```
 
-Use `Tee-Object` when you need to display the output
-and save a text log at the same time.
+Use `Tee-Object` to display the output and save a text log at the same time.
 The log file contains plain text rather than terminal color formatting.
 
--------------------------------------------------------------------------------
+## Silent File Redirection
 
-## Note about output order in the console
+Redirect all streams to a file without printing them to the terminal:
 
-When running a script without redirection (for example, `& '.\script.ps1'`),
-you may notice that some output appears in a different order
-than the commands in the script.
+```pwsh
+# Overwrite the log file
+PS> & '.\script_powershell.ps1' *> '.\script_powershell_output.log'
+
+# Append to the log file
+PS> & '.\script_powershell.ps1' *>> '.\script_powershell_output.log'
+```
+
+The `*>` operator captures all six PowerShell output streams directly into the target file.
+
+## Session Transcription (`Start-Transcript`)
+
+`Start-Transcript` records everything that occurs during script execution,
+including native commands, pipeline data, errors, and `Write-Host` output.
+
+Place these commands at the beginning and end of the script:
+
+```ps1
+# At the very start of the script
+Start-Transcript -Path 'D:\VS_Code\script_powershell.log' -Append
+
+# TODO: Script logic
+
+# At the very end of the script
+Stop-Transcript
+```
+
+- Output is displayed normally in the console while being appended to the log file.
+- PowerShell automatically writes a header containing timestamps, user information,
+and PowerShell version details.
+
+## Note About Output Order in the Console
+
+When running a script without redirection, for example:
+
+```pwsh
+PS> & '.\script_powershell.ps1'
+```
+
+some output may appears in a different order than the commands in the script.
 For example:
 
-- `Write-Host` messages appear immediately.
-- Output from cmdlets like `Get-Variable` may appear later.
+- `Write-Host` messages may appear immediately.
+- Output from cmdlets such as `Get-Variable` may appear later.
 - Error messages may appear at the end of the output.
 
 This happens because PowerShell uses multiple output streams:
 
-- Stream 1: Success output (for example, objects from `Get-Variable`).
-- Stream 2: Error output (error records from cmdlets).
-- Stream 6: Information output (`Write-Host`).
+- Stream 1: Success output, for example objects returned by `Get-Variable`.
+- Stream 2: Error output, for example error records produced by cmdlets.
+- Stream 6: Information output, including `Write-Host` messages.
 
 These streams are buffered and rendered by the host independently.
-In some environments (for example, the VS Code integrated terminal),
-the visual order of these streams may not match
-the exact order of commands in the script.
+In some environments, such as the VS Code integrated terminal,
+the visual order of these streams may not match the exact order of commands in the script.
 
 The script logic still executes sequentially from top to bottom.
 Only the visual order of mixed output in the console can differ.
 
-If you prefer a more predictable visual order:
+For more predictable visual order:
 
 - Use `Format-List` or `Format-Table` to format object output explicitly.
-- Use `try / catch` with `-ErrorAction Stop` to control how errors are displayed.
+- Use `try / catch` with `-ErrorAction Stop` to control how errors are handled and displayed.
 
-When output is redirected to a file (for example, with `*>&1 | Tee-Object`),
+When output is redirected to a file, for example with `*>&1 | Tee-Object`,
 all streams are merged into a single text stream.
