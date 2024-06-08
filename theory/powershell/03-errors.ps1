@@ -1,13 +1,17 @@
-# 03-errors.ps1
+#!/usr/bin/env pwsh
 
-# Running the script
-# & 'D:\VS_Code\learning-guides\theory\powershell\03-errors.ps1'
+<#
+Created on 2024-06
 
-# --------------------------------------------------------------------- ------- ------------------- --------------------
+@author: NewtCode Anna Burova
 
-# ==============================================================================
-# PowerShell Error Handling Guide
-# ==============================================================================
+Run:
+PS> & 'D:\VS_Code\learning-guides\theory\powershell\03-errors.ps1'
+
+PowerShell Error Handling
+#>
+
+# ===================================================================== ======= =================== ====================
 
 # Non-terminating vs. Terminating Errors:
 #     Non-terminating:
@@ -41,8 +45,8 @@
 #       and do not throw PS exceptions.
 #     - $ErrorActionPreference does NOT catch failures from external commands.
 #     - Always evaluate '$LASTEXITCODE' (0 = Success, non-zero = Failure).
-#
-# ==============================================================================
+
+# --------------------------------------------------------------------- ------- ------------------- --------------------
 
 # Default preference for this script:
 $ErrorActionPreference = 'Continue'
@@ -89,6 +93,9 @@ Write-Host "LASTEXITCODE before reset: $LASTEXITCODE" -ForegroundColor Yellow
 
 # To reset it, run an external command that exits with code 0.
 # This updates $LASTEXITCODE while allowing the script to continue executing.
+# cmd - runs the Windows Command Prompt
+# /c - carry out next command and then terminate
+# exit 0 - returns exit code `0` (success)
 cmd /c exit 0
 
 # Alternative (works but heavier, spawns a new PowerShell process):
@@ -170,7 +177,7 @@ catch {
 # Suppress the error with -ErrorAction SilentlyContinue.
 Write-Host "SilentlyContinue START"
 Get-Variable -Name missingVariable -ErrorAction SilentlyContinue
-Write-Host "SilentlyContinue END"
+Write-Host "SilentlyContinue   END"
 
 # Test whether a variable exists without displaying an error.
 $variable = Get-Variable `
@@ -187,3 +194,5 @@ else {
 # --------------------------------------------------------------------- ------- ------------------- --------------------
 
 Write-Host ""
+
+# ===================================================================== ======= =================== ====================
