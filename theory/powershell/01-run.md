@@ -1,7 +1,7 @@
 ```text
-Created on 2024-06
-
-@author: NewtCode Anna Burova
+Author: NewtCode Anna Burova
+Created: 2024-06
+Updated: 2026-11
 ```
 
 # PowerShell Guide
@@ -15,13 +15,13 @@ A script can be run by its full path from any PowerShell working directory.
 Run the script by its full path:
 
 ```pwsh
-PS> & 'D:\VS_Code\script_powershell.ps1'
+& 'D:\VS_Code\script_powershell.ps1'
 ```
 
 Change to the script directory and run the script directly:
 
 ```pwsh
-PS> & '.\script_powershell.ps1'
+& '.\script_powershell.ps1'
 ```
 
 ## Script Execution Modes
@@ -31,7 +31,7 @@ PS> & '.\script_powershell.ps1'
 The dot followed by a space is the **dot-sourcing operator**.
 
 ```pwsh
-PS> . 'D:\VS_Code\script_powershell.ps1'
+. 'D:\VS_Code\script_powershell.ps1'
 ```
 
 Dot-sourcing runs a script in the current PowerShell scope.
@@ -46,7 +46,7 @@ aliases, variables, or configuration into the current session.
 The ampersand (`&`) is the **call operator**.
 
 ```pwsh
-PS> & 'D:\VS_Code\script_powershell.ps1'
+& 'D:\VS_Code\script_powershell.ps1'
 ```
 
 It runs the script normally in its own script scope.
@@ -61,8 +61,10 @@ should not leave their internal variables or functions in the current session.
 ### Dot-Sourcing
 
 ```pwsh
-PS> . 'D:\VS_Code\script_powershell.ps1'
-PS> . '.\script_powershell.ps1'
+. 'D:\VS_Code\script_powershell.ps1'
+```
+```pwsh
+. '.\script_powershell.ps1'
 ```
 
 - Runs in the current PowerShell console scope.
@@ -71,9 +73,13 @@ PS> . '.\script_powershell.ps1'
 ### Call Operator
 
 ```pwsh
-PS> & 'D:\VS_Code\script_powershell.ps1'
-PS> & '.\script_powershell.ps1'
-PS> .\script_powershell.ps1
+& 'D:\VS_Code\script_powershell.ps1'
+```
+```pwsh
+& '.\script_powershell.ps1'
+```
+```pwsh
+.\script_powershell.ps1
 ```
 
 - Runs in the scripts own scope.
@@ -108,7 +114,7 @@ The `-FilePath` parameter specifies the path and name of the log file.
 ### Run from `D:\VS_Code`
 
 ```pwsh
-PS> & '.\script_powershell.ps1' *>&1 | Tee-Object -FilePath '.\script_powershell_output.log'
+& '.\script_powershell.ps1' *>&1 | Tee-Object -FilePath '.\script_powershell_output.log'
 ```
 
 This creates the log file in the current PowerShell working directory.
@@ -116,7 +122,7 @@ This creates the log file in the current PowerShell working directory.
 ### Run from any working directory
 
 ```pwsh
-PS> & 'D:\VS_Code\script_powershell.ps1' *>&1 | Tee-Object -FilePath 'D:\VS_Code\script_powershell_output.log'
+& 'D:\VS_Code\script_powershell.ps1' *>&1 | Tee-Object -FilePath 'D:\VS_Code\script_powershell_output.log'
 ```
 
 This always writes the log file to `D:\VS_Code` because the log path is absolute.
@@ -128,7 +134,7 @@ This always writes the log file to `D:\VS_Code` because the log path is absolute
 Run the script normally to see colored output in the terminal:
 
 ```pwsh
-PS> & 'D:\VS_Code\script_powershell.ps1'
+& 'D:\VS_Code\script_powershell.ps1'
 ```
 
 Use `Tee-Object` to display the output and save a text log at the same time.
@@ -140,10 +146,11 @@ Redirect all streams to a file without printing them to the terminal:
 
 ```pwsh
 # Overwrite the log file
-PS> & '.\script_powershell.ps1' *> '.\script_powershell_output.log'
-
+& '.\script_powershell.ps1' *> '.\script_powershell_output.log'
+```
+```pwsh
 # Append to the log file
-PS> & '.\script_powershell.ps1' *>> '.\script_powershell_output.log'
+& '.\script_powershell.ps1' *>> '.\script_powershell_output.log'
 ```
 
 The `*>` operator captures all six PowerShell output streams directly into the target file.
@@ -155,7 +162,7 @@ including native commands, pipeline data, errors, and `Write-Host` output.
 
 Place these commands at the beginning and end of the script:
 
-```ps1
+```pwsh
 # At the very start of the script
 Start-Transcript -Path 'D:\VS_Code\script_powershell.log' -Append
 
@@ -174,7 +181,7 @@ and PowerShell version details.
 When running a script without redirection, for example:
 
 ```pwsh
-PS> & '.\script_powershell.ps1'
+& '.\script_powershell.ps1'
 ```
 
 some output may appears in a different order than the commands in the script.

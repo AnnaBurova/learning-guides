@@ -1,12 +1,12 @@
 #!/usr/bin/env pwsh
 
 <#
-Created on 2024-06
-
-@author: NewtCode Anna Burova
+Author: NewtCode Anna Burova
+Created: 2024-06
+Updated: 2026-11
 
 Run:
-PS> & 'D:\VS_Code\learning-guides\theory\powershell\02-colors.ps1'
+& 'D:\VS_Code\learning-guides\theory\powershell\02-colors.ps1'
 
 PowerShell Console Colors
 #>
@@ -14,6 +14,8 @@ PowerShell Console Colors
 # ===================================================================== ======= =================== ====================
 
 Write-Host ""
+
+# --------------------------------------------------------------------- ------- ------------------- --------------------
 
 # Test foreground colors
 Write-Host "Yellow TEXT" -ForegroundColor Yellow
@@ -37,18 +39,50 @@ Write-Host ""
 
 # Display all available ConsoleColor values.
 
-# Run these lines directly in PowerShell:
-# [System.Enum]::GetValues([System.ConsoleColor]) | ForEach-Object {
-#     Write-Host $_ -ForegroundColor $_
-# }
+[System.Enum]::GetValues([System.ConsoleColor]) | ForEach-Object {
+    Write-Host $_ -ForegroundColor $_
+}
+
+Write-Host ""
+
+# --------------------------------------------------------------------- ------- ------------------- --------------------
+
+# Available ConsoleColor values:
+# Black
+# DarkBlue
+# DarkGreen
+# DarkCyan
+# DarkRed
+# DarkMagenta
+# DarkYellow
+# Gray
+# DarkGray
+# Blue
+# Green
+# Cyan
+# Red
+# Magenta
+# Yellow
+# White
 
 # --------------------------------------------------------------------- ------- ------------------- --------------------
 
 [System.Enum]::GetValues([System.ConsoleColor]) | ForEach-Object {
-    # $backgroundColor = $_.ToString()
+
     $backgroundColor = $_
 
-    # $foregroundColor = 'Black'
+    $foregroundColor = 'Black'
+
+    Write-Host "$backgroundColor" -ForegroundColor $foregroundColor -BackgroundColor $backgroundColor
+
+    Write-Host ""
+}
+
+Write-Host ""
+
+# --------------------------------------------------------------------- ------- ------------------- --------------------
+
+[System.Enum]::GetValues([System.ConsoleColor]) | ForEach-Object {
 
     # NOTE: VS Code integrated terminal modifies text colors by default.
     # The accessibility feature "Minimum Contrast Ratio" dynamically alters
@@ -58,6 +92,8 @@ Write-Host ""
     # To display exact colors without automatic contrast adjustment,
     # add this line to VS Code user settings (settings.json):
     # "terminal.integrated.minimumContrastRatio": 1
+
+    $backgroundColor = $_.ToString()
 
     $foregroundColor = if ($backgroundColor -in @(
         'Black',
@@ -82,35 +118,8 @@ Write-Host ""
         -BackgroundColor $backgroundColor `
         -NoNewline
 
-    Write-Host " Background: $backgroundColor | Foreground: $foregroundColor"
-
-    # Write-Host "$backgroundColor" -ForegroundColor $foregroundColor -BackgroundColor $backgroundColor
-
-    # Write-Host ""
-    # Write-Host ""
+    Write-Host " Foreground: $foregroundColor | Background: $backgroundColor "
 }
-
-# --------------------------------------------------------------------- ------- ------------------- --------------------
-
-# Available ConsoleColor values:
-# Black
-# DarkBlue
-# DarkGreen
-# DarkCyan
-# DarkRed
-# DarkMagenta
-# DarkYellow
-# Gray
-# DarkGray
-# Blue
-# Green
-# Cyan
-# Red
-# Magenta
-# Yellow
-# White
-
-# --------------------------------------------------------------------- ------- ------------------- --------------------
 
 Write-Host ""
 

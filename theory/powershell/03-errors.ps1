@@ -1,17 +1,21 @@
 #!/usr/bin/env pwsh
 
 <#
-Created on 2024-06
-
-@author: NewtCode Anna Burova
+Author: NewtCode Anna Burova
+Created: 2024-06
+Updated: 2026-11
 
 Run:
-PS> & 'D:\VS_Code\learning-guides\theory\powershell\03-errors.ps1'
+& 'D:\VS_Code\learning-guides\theory\powershell\03-errors.ps1'
 
 PowerShell Error Handling
 #>
 
 # ===================================================================== ======= =================== ====================
+
+Write-Host ""
+
+# --------------------------------------------------------------------- ------- ------------------- --------------------
 
 # Non-terminating vs. Terminating Errors:
 #     Non-terminating:
@@ -53,7 +57,6 @@ $ErrorActionPreference = 'Continue'
 
 # --------------------------------------------------------------------- ------- ------------------- --------------------
 
-Write-Host ""
 Write-Host "# 1 " -ForegroundColor Cyan
 
 # Scenario:
@@ -69,7 +72,6 @@ try {
     # Out-Null suppresses standard console output when the item is found.
     Get-Item -LiteralPath $rootPath1 -ErrorAction Stop | Out-Null
 
-    Write-Host ""
     Write-Host "Folder exists: $rootPath1" -ForegroundColor Green
 }
 catch {
@@ -78,9 +80,10 @@ catch {
     Write-Host "Failed to access folder: $($_.Exception.Message)" -ForegroundColor Red
 }
 
+Write-Host ""
+
 # --------------------------------------------------------------------- ------- ------------------- --------------------
 
-Write-Host ""
 Write-Host "# 2 " -ForegroundColor Cyan
 
 # Scenario:
@@ -103,9 +106,10 @@ cmd /c exit 0
 
 Write-Host "LASTEXITCODE  after reset: $LASTEXITCODE" -ForegroundColor Yellow
 
+Write-Host ""
+
 # --------------------------------------------------------------------- ------- ------------------- --------------------
 
-Write-Host ""
 Write-Host "# 3 " -ForegroundColor Cyan
 
 # Scenario:
@@ -127,9 +131,10 @@ else {
     Write-Host "Git fetch failed with exit code: $LASTEXITCODE" -ForegroundColor Red
 }
 
+Write-Host ""
+
 # --------------------------------------------------------------------- ------- ------------------- --------------------
 
-Write-Host ""
 Write-Host "# 4 " -ForegroundColor Cyan
 
 # Scenario:
@@ -157,9 +162,10 @@ catch {
 #     throw "Fatal: Root directory path is empty. Execution stopped."
 # }
 
+Write-Host ""
+
 # --------------------------------------------------------------------- ------- ------------------- --------------------
 
-Write-Host ""
 Write-Host "# 5 " -ForegroundColor Cyan
 
 # Scenario:
@@ -190,8 +196,6 @@ if ($null -eq $variable) {
 else {
     Write-Host "The variable missingVariable exists." -ForegroundColor Green
 }
-
-# --------------------------------------------------------------------- ------- ------------------- --------------------
 
 Write-Host ""
 

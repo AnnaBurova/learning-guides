@@ -11,12 +11,7 @@ Run:
 Uninstall Packages from Python Versions and Virtual Environments
 #>
 
-if (Get-Command deactivate -ErrorAction SilentlyContinue) {
-
-    Write-Host "`nDeactivating virtual environment..."
-
-    deactivate
-}
+# ===================================================================== ======= =================== ====================
 
 $PythonVersions = @(
     "3.15"
@@ -25,6 +20,23 @@ $PythonVersions = @(
     "3.12"
     "3.11"
 )
+
+# --------------------------------------------------------------------- ------- ------------------- --------------------
+
+Write-Host ""
+
+# --------------------------------------------------------------------- ------- ------------------- --------------------
+
+if (Get-Command deactivate -ErrorAction SilentlyContinue) {
+
+    Write-Host "Deactivating virtual environment..."
+
+    deactivate
+
+    Write-Host ""
+}
+
+# --------------------------------------------------------------------- ------- ------------------- --------------------
 
 # Uninstall packages from each installed Python version.
 foreach ($Version in $PythonVersions) {
@@ -75,3 +87,5 @@ foreach ($Version in $PythonVersions) {
 }
 
 Write-Host ""
+
+# ===================================================================== ======= =================== ====================

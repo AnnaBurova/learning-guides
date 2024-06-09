@@ -11,14 +11,9 @@ Run:
 Install a Package in Each Virtual Environment
 #>
 
+# ===================================================================== ======= =================== ====================
+
 $PackageName = "pytest"
-
-if (Get-Command deactivate -ErrorAction SilentlyContinue) {
-
-    Write-Host "`nDeactivating virtual environment..."
-
-    deactivate
-}
 
 $PythonVersions = @(
     "3.15"
@@ -27,6 +22,23 @@ $PythonVersions = @(
     "3.12"
     "3.11"
 )
+
+# --------------------------------------------------------------------- ------- ------------------- --------------------
+
+Write-Host ""
+
+# --------------------------------------------------------------------- ------- ------------------- --------------------
+
+if (Get-Command deactivate -ErrorAction SilentlyContinue) {
+
+    Write-Host "Deactivating virtual environment..."
+
+    deactivate
+
+    Write-Host ""
+}
+
+# --------------------------------------------------------------------- ------- ------------------- --------------------
 
 foreach ($Version in $PythonVersions) {
 
@@ -43,3 +55,5 @@ foreach ($Version in $PythonVersions) {
 }
 
 Write-Host ""
+
+# ===================================================================== ======= =================== ====================
