@@ -6,7 +6,7 @@ Created: 2024-06
 Updated: 2026-11
 
 Run:
-PS> & 'D:\VS_Code\learning-guides\theory\python\01-01-install-python-versions.ps1'
+& 'D:\VS_Code\learning-guides\theory\python\01-01-install-python-versions.ps1'
 
 Install Python Versions Using the Python Install Manager
 #>

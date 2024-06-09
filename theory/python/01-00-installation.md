@@ -21,16 +21,16 @@ because those operations use an already-installed runtime.
 
 ## Install the Python Install Manager for Windows
 
-[https://www.python.org/downloads/windows/](https://www.python.org/downloads/windows/)
+https://www.python.org/downloads/windows/
 
-```pwsh
-PS> WinGet search --id PythonInstallManager
-PS> WinGet install --id Python.PythonInstallManager
+```sh
+WinGet search --id PythonInstallManager
+WinGet install --id Python.PythonInstallManager
 ```
 
 ## Status of Python Versions
 
-[https://devguide.python.org/versions/](https://devguide.python.org/versions/)
+https://devguide.python.org/versions/
 
 Check the linked page for current release status and end-of-life dates.
 
@@ -48,9 +48,11 @@ Check the linked page for current release status and end-of-life dates.
 This command updates the manager if a new version is available and
 lists all Python versions available online.
 
-```pwsh
-PS> py list --online
-
+```sh
+py list --online
+```
+```output
+OUTPUT:
 Python install manager was successfully updated to 26.4.
 
 Tag         Name             Managed By   Version   Alias
@@ -66,9 +68,11 @@ obsolete versions, or variants currently under development.
 
 Check the locally installed versions with:
 
-```pwsh
-PS> py list
-
+```sh
+py list
+```
+```output
+OUTPUT:
 Tag   Name   Managed By   Version   Alias
 -- No runtimes. Use 'py install <version>' to install one. --
 ```
@@ -79,9 +83,11 @@ If no Python runtime is installed,
 running `python --version` prompts the Python Install Manager
 to install its default version.
 
-```pwsh
-PS> python --version
-
+```sh
+python --version
+```
+```output
+OUTPUT:
 ********************************************************************************
 The signature for https://www.python.org/ftp/python/index-windows.json was successfully verified.
 Installing Python 3.15.2.
@@ -94,9 +100,11 @@ Python 3.15.2
 
 Check the Python installation location, if needed:
 
-```pwsh
-PS> py list -f exe
-
+```sh
+py list -f exe
+```
+```output
+OUTPUT:
 C:\Users\USER_NAME\AppData\Local\Python\pythoncore-3.15-64\python.exe
 ```
 
@@ -115,38 +123,56 @@ and verify the installed versions:
 
 > Optional helper: [01-01-install-python-versions.ps1](./01-01-install-python-versions.ps1)
 
-```pwsh
-PS> py install 3.14
-
+```sh
+py install 3.14
+```
+```output
+OUTPUT:
 Installing Python 3.14.10.
 ```
 
-```pwsh
-PS> py install 3.13
+---
 
+```sh
+py install 3.13
+```
+```output
+OUTPUT:
 Installing Python 3.13.17.
 Python 3.13.17 will be launched by python3.13[-64].exe
 ```
 
-```pwsh
-PS> py install 3.12
+---
 
+```sh
+py install 3.12
+```
+```output
+OUTPUT:
 Installing Python 3.12.10.
 Python 3.12.10 will be launched by python3.12[-64].exe
 ```
 
-```pwsh
-PS> py install 3.11
+---
 
+```sh
+py install 3.11
+```
+```output
+OUTPUT:
 Installing Python 3.11.9.
 Python 3.11.9 will be launched by python3.11[-64].exe
 ```
 
+---
+
 After all installations succeed, verify them:
 
-```pwsh
-PS> py list
-
+```sh
+py list
+```
+```output
+OUTPUT:
 Tag           Name            Managed By  Version  Alias
 3.15[-64]  *  Python 3.15.2   PythonCore  3.15.2   python3[-64].exe, python3.15[-64].exe
 3.14[-64]     Python 3.14.10  PythonCore  3.14.10  python3.14[-64].exe
@@ -155,33 +181,53 @@ Tag           Name            Managed By  Version  Alias
 3.11[-64]     Python 3.11.9   PythonCore  3.11.9   python3.11[-64].exe
 ```
 
-```pwsh
-PS> python --version
+---
 
+```sh
+python --version
+```
+```output
+OUTPUT:
 Python 3.15.2
 ```
 
-```pwsh
-PS> py -3.14 --version
+---
 
+```sh
+py -3.14 --version
+```
+```output
+OUTPUT:
 Python 3.14.10
 ```
 
-```pwsh
-PS> py -3.13 --version
+---
 
+```sh
+py -3.13 --version
+```
+```output
+OUTPUT:
 Python 3.13.17
 ```
 
-```pwsh
-PS> py -3.12 --version
+---
 
+```sh
+py -3.12 --version
+```
+```output
+OUTPUT:
 Python 3.12.10
 ```
 
-```pwsh
-PS> py -3.11 --version
+---
 
+```sh
+py -3.11 --version
+```
+```output
+OUTPUT:
 Python 3.11.9
 ```
 
@@ -192,46 +238,66 @@ or run the helper to update all five Python versions:
 
 > Optional helper: [01-02-update-python-versions.ps1](./01-02-update-python-versions.ps1)
 
-```pwsh
-PS> py install --update 3.15
-
+```sh
+py install --update 3.15
+```
+```output
+OUTPUT:
 Python 3.15.2 is already up to date.
 Python 3.15.2 will be launched by python.exe and also python3[-64].exe, python3.15[-64].exe
 ```
 
-```pwsh
-PS> py install --update 3.14
+---
 
+```sh
+py install --update 3.14
+```
+```output
+OUTPUT:
 Python 3.14.10 is already up to date.
 Python 3.14.10 will be launched by python3.14[-64].exe
 ```
 
-```pwsh
-PS> py install --update 3.13
+---
 
+```sh
+py install --update 3.13
+```
+```output
+OUTPUT:
 Python 3.13.17 is already up to date.
 Python 3.13.17 will be launched by python3.13[-64].exe
 ```
 
-```pwsh
-PS> py install --update 3.12
+---
 
+```sh
+py install --update 3.12
+```
+```output
+OUTPUT:
 Python 3.12.10 is already up to date.
 Python 3.12.10 will be launched by python3.12[-64].exe
 ```
 
-```pwsh
-PS> py install --update 3.11
+---
 
+```sh
+py install --update 3.11
+```
+```output
+OUTPUT:
 Python 3.11.9 is already up to date.
 Python 3.11.9 will be launched by python3.11[-64].exe
 ```
 
 ## Uninstall a Single Python Version
 
-```pwsh
-PS> py uninstall 3.10
-
+```sh
+py uninstall 3.10
+```
+```output
+OUTPUT:
 Uninstall Python 3.10.11? [Y/n]
 Removed Python 3.10.11
 ```
@@ -240,12 +306,15 @@ Removed Python 3.10.11
 
 This removes all managed Python runtimes, including the manually installed Python 3.15.
 
-```pwsh
+```sh
 # If in Virtual Environment
-PS> deactivate
-
-PS> py uninstall --purge
-
+deactivate
+```
+```sh
+py uninstall --purge
+```
+```output
+OUTPUT:
 Uninstall all runtimes? [Y/n]
 Purging Python 3.15.2  from C:\Users\USER_NAME\AppData\Local\Python\pythoncore-3.15-64
 Purging Python 3.14.7  from C:\Users\USER_NAME\AppData\Local\Python\pythoncore-3.14-64
@@ -267,12 +336,12 @@ or run the helper to create them automatically:
 Run the helper from the workspace directory where the `.venv*` directories
 should be created.
 
-```pwsh
-PS> py -3.15 -m venv .venv315
-PS> py -3.14 -m venv .venv314
-PS> py -3.13 -m venv .venv313
-PS> py -3.12 -m venv .venv312
-PS> py -3.11 -m venv .venv311
+```sh
+py -3.15 -m venv .venv315
+py -3.14 -m venv .venv314
+py -3.13 -m venv .venv313
+py -3.12 -m venv .venv312
+py -3.11 -m venv .venv311
 ```
 
 ## Activate Virtual Environments
@@ -282,23 +351,27 @@ changing `.venv315` to the corresponding environment name.
 The process-scoped execution policy change applies only to the current PowerShell session.
 
 ```pwsh
-PS> (Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& 'D:\VS_Code\.venv315\Scripts\Activate.ps1')
-PS> (Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& 'D:\VS_Code\.venv314\Scripts\Activate.ps1')
-PS> (Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& 'D:\VS_Code\.venv313\Scripts\Activate.ps1')
-PS> (Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& 'D:\VS_Code\.venv312\Scripts\Activate.ps1')
-PS> (Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& 'D:\VS_Code\.venv311\Scripts\Activate.ps1')
+(Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& 'D:\VS_Code\.venv315\Scripts\Activate.ps1')
+```
 
-PS> & 'D:\VS_Code\.venv315\Scripts\Activate.ps1'
-PS> & 'D:\VS_Code\.venv314\Scripts\Activate.ps1'
-PS> & 'D:\VS_Code\.venv313\Scripts\Activate.ps1'
-PS> & 'D:\VS_Code\.venv312\Scripts\Activate.ps1'
-PS> & 'D:\VS_Code\.venv311\Scripts\Activate.ps1'
+OR
+
+```pwsh
+# Required to activate the Python venv in a new terminal
+# Allows running local PowerShell scripts in the current terminal session only
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
+
+& 'D:\VS_Code\.venv315\Scripts\Activate.ps1'
+& 'D:\VS_Code\.venv314\Scripts\Activate.ps1'
+& 'D:\VS_Code\.venv313\Scripts\Activate.ps1'
+& 'D:\VS_Code\.venv312\Scripts\Activate.ps1'
+& 'D:\VS_Code\.venv311\Scripts\Activate.ps1'
 ```
 
 ## Deactivate a Virtual Environment
 
-```pwsh
-PS> deactivate
+```sh
+deactivate
 ```
 
 ## Work with Packages and pip
@@ -329,19 +402,22 @@ or run the helper:
 
 > Optional helper: [01-04-upgrade-pip.ps1](./01-04-upgrade-pip.ps1)
 
+```sh
+py -3.15 -m pip install --upgrade pip
+py -3.14 -m pip install --upgrade pip
+py -3.13 -m pip install --upgrade pip
+py -3.12 -m pip install --upgrade pip
+py -3.11 -m pip install --upgrade pip
+```
 ```pwsh
-PS> py -3.15 -m pip install --upgrade pip
-PS> py -3.14 -m pip install --upgrade pip
-PS> py -3.13 -m pip install --upgrade pip
-PS> py -3.12 -m pip install --upgrade pip
-PS> py -3.11 -m pip install --upgrade pip
-
-PS> & '.\.venv315\Scripts\python.exe' -m pip install --upgrade pip
-PS> & '.\.venv314\Scripts\python.exe' -m pip install --upgrade pip
-PS> & '.\.venv313\Scripts\python.exe' -m pip install --upgrade pip
-PS> & '.\.venv312\Scripts\python.exe' -m pip install --upgrade pip
-PS> & '.\.venv311\Scripts\python.exe' -m pip install --upgrade pip
-
+& '.\.venv315\Scripts\python.exe' -m pip install --upgrade pip
+& '.\.venv314\Scripts\python.exe' -m pip install --upgrade pip
+& '.\.venv313\Scripts\python.exe' -m pip install --upgrade pip
+& '.\.venv312\Scripts\python.exe' -m pip install --upgrade pip
+& '.\.venv311\Scripts\python.exe' -m pip install --upgrade pip
+```
+```output
+OUTPUT:
 Collecting pip
   Using cached pip-26.3-py3-none-any.whl.metadata (4.6 kB)
 Using cached pip-26.3-py3-none-any.whl (2.0 MB)
@@ -360,18 +436,19 @@ or run the helper to list packages for all five Python versions and their virtua
 
 > Optional helper: [01-05-list-pip-packages.ps1](./01-05-list-pip-packages.ps1)
 
+```sh
+py -3.15 -m pip list
+py -3.14 -m pip list
+py -3.13 -m pip list
+py -3.12 -m pip list
+py -3.11 -m pip list
+```
 ```pwsh
-PS> py -3.15 -m pip list
-PS> py -3.14 -m pip list
-PS> py -3.13 -m pip list
-PS> py -3.12 -m pip list
-PS> py -3.11 -m pip list
-
-PS> & '.\.venv315\Scripts\python.exe' -m pip list
-PS> & '.\.venv314\Scripts\python.exe' -m pip list
-PS> & '.\.venv313\Scripts\python.exe' -m pip list
-PS> & '.\.venv312\Scripts\python.exe' -m pip list
-PS> & '.\.venv311\Scripts\python.exe' -m pip list
+& '.\.venv315\Scripts\python.exe' -m pip list
+& '.\.venv314\Scripts\python.exe' -m pip list
+& '.\.venv313\Scripts\python.exe' -m pip list
+& '.\.venv312\Scripts\python.exe' -m pip list
+& '.\.venv311\Scripts\python.exe' -m pip list
 ```
 
 ## Install Packages
@@ -381,18 +458,20 @@ Avoid installing packages globally unless necessary.
 Activate the virtual environment before installing a package:
 
 ```pwsh
-PS> & 'D:\VS_Code\.venv315\Scripts\Activate.ps1'
-PS> python -m pip install pytest
+& 'D:\VS_Code\.venv315\Scripts\Activate.ps1'
+```
+```sh
+python -m pip install pytest
 ```
 
 Or install the package directly into the chosen environment without activating it:
 
 ```pwsh
-PS> & '.\.venv315\Scripts\python.exe' -m pip install pytest
-PS> & '.\.venv314\Scripts\python.exe' -m pip install pytest
-PS> & '.\.venv313\Scripts\python.exe' -m pip install pytest
-PS> & '.\.venv312\Scripts\python.exe' -m pip install pytest
-PS> & '.\.venv311\Scripts\python.exe' -m pip install pytest
+& '.\.venv315\Scripts\python.exe' -m pip install pytest
+& '.\.venv314\Scripts\python.exe' -m pip install pytest
+& '.\.venv313\Scripts\python.exe' -m pip install pytest
+& '.\.venv312\Scripts\python.exe' -m pip install pytest
+& '.\.venv311\Scripts\python.exe' -m pip install pytest
 ```
 
 For scripted installation, the optional helper repeats the `pytest` package installation
@@ -407,8 +486,8 @@ edit `$PackageName` in the script to install a different package.
 
 With the intended virtual environment active, uninstall one package:
 
-```pwsh
-PS> python -m pip uninstall pytest
+```sh
+python -m pip uninstall pytest
 ```
 
 ## Uninstall All Packages
@@ -417,16 +496,16 @@ To uninstall packages from one active virtual environment manually,
 first create a package list and review it.
 To keep core tools such as `pip`, `setuptools`, or `wheel`, remove their entries from the list:
 
-```pwsh
-PS> python -m pip freeze > .\uninstall_packages.txt
-PS> python -m pip uninstall -r .\uninstall_packages.txt
+```sh
+python -m pip freeze > 'uninstall_packages.txt'
+python -m pip uninstall -r 'uninstall_packages.txt'
 ```
 
 For a global Python installation, use the matching version-specific commands:
 
-```pwsh
-PS> py -3.15 -m pip freeze > .\uninstall_packages_python315.txt
-PS> py -3.15 -m pip uninstall -r .\uninstall_packages_python315.txt
+```sh
+py -3.15 -m pip freeze > 'uninstall_packages_python315.txt'
+py -3.15 -m pip uninstall -r 'uninstall_packages_python315.txt'
 ```
 
 Repeat with each installed Python version that needs cleanup.
@@ -445,33 +524,46 @@ t creates package-list files in the current directory and uninstalls their conte
 ## Quick reference for WSL
 
 ```sh
-$ wsl --status
-$ wsl --version
-$ wsl --list --verbose
-$ wsl --install --no-distribution
-$ wsl --install -d Ubuntu
+wsl --status
+wsl --version
+wsl --list --verbose
+wsl --install --no-distribution
+wsl --install -d Ubuntu
 ```
 
-```sh
-$ sudo apt update
-$ sudo apt install python3 python3-pip
+---
+
+```bash
+sudo apt update
+sudo apt install python3 python3-pip
 ```
 
-```sh
-$ python3 --version
+---
 
+```bash
+python3 --version
+```
+```output
+OUTPUT:
 Python 3.14.4
 ```
 
-```sh
-$ pip3 --version
+---
 
+```bash
+pip3 --version
+```
+```output
+OUTPUT:
 pip 25.1.1 from /usr/lib/python3/dist-packages/pip (python 3.14)
 ```
 
-```sh
-$ sudo apt install python3-venv
-$ python3 -m venv .venvWSL314
-$ source .venvWSL314/bin/activate
-$ pip install pytest
+---
+
+```bash
+sudo apt install python3-venv
+python3 -m venv .venvWSL314
+source .venvWSL314/bin/activate
+python3 -m pip install pytest
+python3 -m pip freeze > 'uninstall_packages.txt'
 ```

@@ -6,7 +6,7 @@ Created: 2024-06
 Updated: 2026-11
 
 Run:
-PS> & 'D:\VS_Code\learning-guides\theory\python\01-04-upgrade-pip.ps1'
+& 'D:\VS_Code\learning-guides\theory\python\01-04-upgrade-pip.ps1'
 
 Upgrade pip for Python Versions and Virtual Environments
 #>

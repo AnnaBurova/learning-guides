@@ -6,7 +6,7 @@ Created: 2024-06
 Updated: 2026-11
 
 Run:
-PS> & 'D:\VS_Code\learning-guides\theory\python\01-05-list-pip-packages.ps1'
+& 'D:\VS_Code\learning-guides\theory\python\01-05-list-pip-packages.ps1'
 
 List Packages for Python Versions and Virtual Environments
 #>

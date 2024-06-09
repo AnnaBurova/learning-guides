@@ -6,7 +6,7 @@ Created: 2024-06
 Updated: 2026-11
 
 Run:
-PS> & 'D:\VS_Code\learning-guides\theory\python\01-06-install-package.ps1'
+& 'D:\VS_Code\learning-guides\theory\python\01-06-install-package.ps1'
 
 Install a Package in Each Virtual Environment
 #>
