@@ -1,48 +1,75 @@
 ```text
-Created on 2024-06
-
-@author: NewtCode Anna Burova
+Author: NewtCode Anna Burova
+Created: 2024-06
+Updated: 2026-11
 ```
 
-# Create a Python Library from Scratch
+# Create a Python Library
 
-## Project Structure
+This guide introduces a small, installable Python package.
+
+The accompanying starter files are in the
+[dev-configs/new-python](https://github.com/AnnaBurova/dev-configs/tree/main/new-python)
+directory.
+
+## Project Structure Overview
+
+A modern src-layout structure is recommended
+to make the project easier to manage and avoid import issues.
+This approach is the standard for Python packages.
 
 Create the following directory structure:
 
 ```text
-dev-library/              # Root repository
+new-python/                       # Root repository
 │
 ├── src/
-│   └── library/          # Main Python package (module source)
-│       ├── __init__.py
-│       ├── module.py
-│       └── (other files)
+│   └── package_name/             # Main Python package (module source)
+│       ├── __init__.py           # Defines the package's public import interface
+│       ├── __main__.py           # Optional entry point for `python -m package_name`
+│       ├── docstring.py          # Example module with a documented function
+│       ├── module.py             # Example module with a public function
+│       └── (other modules)
 │
-├── tests/                # Manual and automated test scripts
-│   │
-│   ├── TESTING.md        # Test documentation and instructions
-│   ├── __init__.py       # Marks tests as a package
-│   ├── test_module.py
-│   ├── test_*.py         # Pytest test scripts for modules
-│   ├── test_*_*.py       # Pytest test scripts for functions
-│   └── (other test scripts)
+├── tests/                        # Manual and automated test scripts
+│   ├── README_TESTING.md         # Instructions for running tests across Python versions
+│   ├── __init__.py               # Marks tests as a package
+│   ├── test_module.py            # Tests for the module example
+│   ├── test_module_function.py   # Tests for the function example
+│   └── (other tests)
 │
-├── LICENSE               # License file
-├── pyproject.toml        # Build system configuration and project metadata
-├── requirements.txt      # Project dependencies
-└── README.md             # Project overview and usage instructions
+├── .gitignore                    # Excludes local environments, caches, and build output
+├── LICENSE                       # Terms for using and distributing the package
+├── CHANGELOG.md                  # Optional record of changes between releases
+├── CONTRIBUTING.md               # Optional baseline for project contributions
+├── INSTALLATION.md               # Local setup instructions
+├── pyproject.toml                # Build configuration and package metadata
+├── requirements.txt              # Convenience install for editable development
+└── README.md                     # Project overview and first-use instructions
 ```
 
-**Key points:**
+### Key Architectural Details:
 
-- The `src/` layout is the modern standard. It prevents import issues during development.
-- `__init__.py` makes the directory a Python package. Can be empty or export functions.
-- `pyproject.toml` is the main configuration file for build tools and metadata.
+- **The `src/` Layout**:
+Using the dedicated `src` directory is considered a modern best practice.
+It explicitly separates source code from configuration files and tests,
+preventing common import ambiguities
+(e.g., accidentally importing local test utilities into production code).
 
-## Requirements
+- **Package Naming Convention**:
+The name chosen for the main package folder (`package_name`)
+must consistently match the intended module
+or import name used throughout the project.
 
-Try to support the following Python versions:
+- **`__init__.py` Role**:
+This file marks a directory as a Python package.
+While modern Python versions (3.12+) often handle this implicitly,
+including `__init__.py` remains crucial for defining and exposing the public API of your module
+(e.g., allowing users to import specific functions directly `from import package_name`).
+
+### Requirements
+
+Aim to support the modern versions Python versions:
 
 - Python 3.15
 - Python 3.14
@@ -50,39 +77,59 @@ Try to support the following Python versions:
 - Python 3.12
 - Python 3.11
 
-Other dependencies list in `requirements.txt`.
+The test suite should also run under each supported interpreter.
+Version classifiers in `pyproject.toml` are metadata and should be kept in sync with this range.
 
-## Examples of Library Code
+Runtime dependencies belong in `[project].dependencies` in `pyproject.toml`.
+The optional `test` dependency group contains tools needed only during development.
 
-[github.com/AnnaBurova/dev-configs/new-python/](https://github.com/AnnaBurova/dev-configs/blob/main/new-python/)
+List dependencies in `requirements.txt`.
 
-- pyproject.toml
-- src/library/__init__.py
-- src/library/docstring.py = module.py
+## Build and Publish Distribution Packages
 
-## Build Distribution Packages
+### 1. Install build tools
 
-Install build tools:
+These tools are used to build the package and upload it to PyPI.
 
-```pwsh
-PS> pip install build twine
+Install the required tools:
+
+```sh
+python -m pip install --upgrade build twine setuptools wheel
 ```
 
-Build the package:
+### 2. Build the package
 
-```pwsh
-PS> cd dev-library/
-PS> python -m build
-
-Successfully built dev_library-0.1.0.tar.gz and dev_library-0.1.0-py3-none-any.whl
+```sh
+cd ./new-python/
+python -m build
+```
+```output
+OUTPUT:
+Successfully built package_name-0.1.0.tar.gz and package_name-0.1.0-py3-none-any.whl
 ```
 
-This creates `.tar.gz` (source distribution) and `.whl` (wheel) files in the `dist/` directory.
+This creates distribution files in the `dist/` directory, including:
+- a source archive (`.tar.gz`)
+- a wheel (`.whl`)
+
+### 3. Inspect the package
 
 To inspect the contents of the source distribution without extracting:
 
-```pwsh
-PS> tar -tzf dist/dev_library-0.1.0.tar.gz
+```sh
+tar -tzf dist/package_name-0.1.0.tar.gz
+```
+```output
+OUTPUT:
+package_name-0.1.0/src/package_name/__init__.py
+package_name-0.1.0/src/package_name/__main__.py
+package_name-0.1.0/src/package_name/docstring.py
+package_name-0.1.0/src/package_name/module.py
+package_name-0.1.0/.gitignore
+package_name-0.1.0/LICENSE
+package_name-0.1.0/README.md
+package_name-0.1.0/pyproject.toml
+package_name-0.1.0/PKG-INFO
 ```
 
 This lists all files that will be included. Use this to verify:
@@ -99,8 +146,21 @@ exclude = []
 
 To extract the archive for manual inspection:
 
-```pwsh
-PS> tar -xzf dist/dev_library-0.1.0.tar.gz
+```sh
+tar -xzf dist/package_name-0.1.0.tar.gz
+```
+
+### 4. Validate the package
+
+This helps catch common packaging issues, such as missing README rendering or invalid metadata.
+
+```sh
+python -m twine check dist/*
+```
+```output
+OUTPUT:
+Checking dist\package_name-0.1.0-py3-none-any.whl: PASSED
+Checking dist\package_name-0.1.0.tar.gz: PASSED
 ```
 
 ## Test on TestPyPI (Recommended)
@@ -108,80 +168,73 @@ PS> tar -xzf dist/dev_library-0.1.0.tar.gz
 Before publishing to the main PyPI, test your package on the staging server.
 This helps catch packaging errors without risking your package name.
 
-### Step 1: Create a TestPyPI Account
+### 1. Create a TestPyPI Account
 
 1. Go to [test.pypi.org](https://test.pypi.org/).
-
 2. **Register** an account or Log in.
-
 3. Go to **Account Settings** -> **API Tokens**.
-
 4. Create a new token with **Upload** scope.
 
 **Copy the token immediately**.
 You won't be able to see it again!
 Save it in a password manager or secure note.
 
-### Step 2: Upload Your Package to TestPyPI
+### 2. Upload Your Package to TestPyPI
 
-```pwsh
-PS> cd dev-library/
-PS> twine upload --repository testpypi dist/*
+```sh
+cd ./new-python/
+python -m twine upload --repository testpypi dist/*
 ```
 
 Enter your API token when prompted.
 
-### Step 3: Install and Test from TestPyPI
+### 3. Install and Test from TestPyPI
 
-```pwsh
-PS> pip install --index-url https://test.pypi.org/simple/ library
+```sh
+python -m pip install --index-url https://test.pypi.org/simple/ package_name
 ```
 
 Verify that:
 - The package installs without errors.
-- All imports work: `import library`.
+- All imports work: `import package_name`.
 - Functions behave as expected.
 
 ## Publish to PyPI (Production)
 
 Once testing is complete, publish to the main PyPI.
 
-### Step 1: Create a PyPI Account
+### 1. Create a PyPI Account
 
 1. Go to [pypi.org](https://pypi.org/).
-
 2. **Register** an account or Log in (same process as TestPyPI).
-
 3. Go to **Account Settings** -> **API Tokens**.
-
 4. Create a new token with **Upload** scope.
 
 **Copy the token immediately**.
 You won't be able to see it again!
 Save it in a password manager or secure note.
 
-### Step 2: Upload Your Package to PyPI
+### 2. Upload Your Package to PyPI
 
-```pwsh
-PS> cd dev-library/
-PS> twine upload dist/*
+```sh
+cd ./new-python/
+python -m twine upload dist/*
 ```
 
-Enter your API token when prompted.
+When prompted, enter the PyPI API token.
 
-### Step 3: Verify on PyPI
+### 3. Verify on PyPI
 
-1. Visit your package page: [pypi.org/project/dev-library/](https://pypi.org/project/dev-library/)
-
+1. Visit your package page: [pypi.org/project/package_name/](https://pypi.org/project/package_name/)
 2. Check that:
     - README renders correctly (no broken Markdown)
     - All metadata is correct (version, author, license)
     - Files are listed under **Download files**
 
-### Step 4: Install from PyPI
+### 4. Example Usage
 
-Anyone can now install your package:
+Once the package is published, it can be installed with:
 
-```pwsh
-PS> pip install library
+```sh
+python -m pip install package_name
 ```
