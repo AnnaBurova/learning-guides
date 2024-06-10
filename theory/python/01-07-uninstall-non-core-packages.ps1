@@ -13,6 +13,9 @@ Uninstall Packages from Python Versions and Virtual Environments
 
 # ===================================================================== ======= =================== ====================
 
+# Directory containing virtual environments
+$WorkspaceDirectory = "D:\VS_Code"
+
 $PythonVersions = @(
     "3.15"
     "3.14"
@@ -22,6 +25,8 @@ $PythonVersions = @(
 )
 
 # --------------------------------------------------------------------- ------- ------------------- --------------------
+
+Set-Location -LiteralPath $WorkspaceDirectory
 
 Write-Host ""
 

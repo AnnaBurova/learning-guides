@@ -13,6 +13,9 @@ Install a Package in Each Virtual Environment
 
 # ===================================================================== ======= =================== ====================
 
+# Directory containing virtual environments
+$WorkspaceDirectory = "D:\VS_Code"
+
 $PackageName = "pytest"
 
 $PythonVersions = @(
@@ -24,6 +27,8 @@ $PythonVersions = @(
 )
 
 # --------------------------------------------------------------------- ------- ------------------- --------------------
+
+Set-Location -LiteralPath $WorkspaceDirectory
 
 Write-Host ""
 
