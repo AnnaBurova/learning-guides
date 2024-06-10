@@ -156,7 +156,7 @@ catch {
 }
 
 # This throw is not caught and will stop the script.
-# Uncomment only if you want the script to terminate here.
+# Uncomment only if the script should terminate here.
 # if (-not $rootPath) {
 #     Write-Host ""
 #     throw "Fatal: Root directory path is empty. Execution stopped."

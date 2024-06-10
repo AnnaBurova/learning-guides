@@ -26,7 +26,7 @@ git diff v1.0.0 v1.1.1 > changes.patch  # Compare two tags
 ## Stash Workflow
 
 ```sh
-# Use stash when you need to temporarily save unfinished work.
+# Use stash when unfinished work needs to be temporarily saved.
 git stash                    # Stash unstaged changes (doesn't take untracked files)
 git stash -u                 # Stash all changes including untracked files
 git stash push -m "Message"  # Stash with a message for easier identification
@@ -46,7 +46,7 @@ git reset --mixed HEAD~1  # Undo last commit, keep changes unstaged (default)
 git reset --soft HEAD~1   # Undo last commit, keep staged changes
 git reset --hard HEAD~1   # Undo last commit and discard all files and directories
 git reset <filename>      # Unstage a file (keep changes in working directory)
-# Use  git reset --hard  only when you are sure you want to lose local changes.
+# Use `git reset --hard` only when local changes are intended to be lost.
 
 git restore                      # Discard changes in working directory from last commit
 git restore <filename>           # Discard local changes in a file
@@ -173,7 +173,7 @@ If someone else pushed new commits, Git refuses to push and gives warning.
 Combine, edit, or delete commits before merging
 
 ```sh
-# Rebase your branch with main (update history cleanly)
+# Rebase the branch with main (update history cleanly)
 git fetch origin
 git rebase origin/main
 

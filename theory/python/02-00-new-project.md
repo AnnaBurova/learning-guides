@@ -4,7 +4,7 @@ Created: 2024-06
 Updated: 2026-11
 ```
 
-# Create a Python Library
+# Create a Python Package
 
 This guide introduces a small, installable Python package.
 
@@ -24,7 +24,7 @@ Create the following directory structure:
 new-python/                       # Root repository
 │
 ├── src/
-│   └── package_name/             # Main Python package (module source)
+│   └── package_name/             # Main Python package
 │       ├── __init__.py           # Defines the package's public import interface
 │       ├── __main__.py           # Optional entry point for `python -m package_name`
 │       ├── docstring.py          # Example module with a documented function
@@ -33,9 +33,9 @@ new-python/                       # Root repository
 │
 ├── tests/                        # Manual and automated test scripts
 │   ├── README_TESTING.md         # Instructions for running tests across Python versions
-│   ├── __init__.py               # Marks tests as a package
-│   ├── test_module.py            # Tests for the module example
-│   ├── test_module_function.py   # Tests for the function example
+│   ├── __init__.py               # Marks the tests directory as a package
+│   ├── test_module.py            # Tests for the example module
+│   ├── test_module_function.py   # Tests for the example function
 │   └── (other tests)
 │
 ├── .gitignore                    # Excludes local environments, caches, and build output
@@ -44,7 +44,7 @@ new-python/                       # Root repository
 ├── CONTRIBUTING.md               # Optional baseline for project contributions
 ├── INSTALLATION.md               # Local setup instructions
 ├── pyproject.toml                # Build configuration and package metadata
-├── requirements.txt              # Convenience install for editable development
+├── requirements.txt              # Runtime dependencies for using the package
 └── README.md                     # Project overview and first-use instructions
 ```
 
@@ -64,8 +64,8 @@ or import name used throughout the project.
 - **`__init__.py` Role**:
 This file marks a directory as a Python package.
 While modern Python versions (3.12+) often handle this implicitly,
-including `__init__.py` remains crucial for defining and exposing the public API of your module
-(e.g., allowing users to import specific functions directly `from import package_name`).
+including `__init__.py` remains crucial for defining and exposing the public API of the module
+(e.g., allowing users to import specific functions directly `from package_name import ...`).
 
 ### Requirements
 
@@ -136,7 +136,7 @@ This lists all files that will be included. Use this to verify:
 - All necessary files are present (code, README, LICENSE)
 - No unnecessary files are included (tests, `.git`, `.env`, etc.)
 
-If you need to adjust which files are included, modify these settings in `pyproject.toml`:
+If adjustments to the included files are needed, modify these settings in `pyproject.toml`:
 
 ```toml
 [tool.hatch.build.targets.sdist]
@@ -165,8 +165,8 @@ Checking dist\package_name-0.1.0.tar.gz: PASSED
 
 ## Test on TestPyPI (Recommended)
 
-Before publishing to the main PyPI, test your package on the staging server.
-This helps catch packaging errors without risking your package name.
+Before publishing to the main PyPI, test the package on the staging server.
+This helps catch packaging errors without risking the package name.
 
 ### 1. Create a TestPyPI Account
 
@@ -176,17 +176,17 @@ This helps catch packaging errors without risking your package name.
 4. Create a new token with **Upload** scope.
 
 **Copy the token immediately**.
-You won't be able to see it again!
+It will not be visible again!
 Save it in a password manager or secure note.
 
-### 2. Upload Your Package to TestPyPI
+### 2. Upload the Package to TestPyPI
 
 ```sh
 cd ./new-python/
 python -m twine upload --repository testpypi dist/*
 ```
 
-Enter your API token when prompted.
+Enter API token when prompted.
 
 ### 3. Install and Test from TestPyPI
 
@@ -211,10 +211,10 @@ Once testing is complete, publish to the main PyPI.
 4. Create a new token with **Upload** scope.
 
 **Copy the token immediately**.
-You won't be able to see it again!
+It will not be visible again!
 Save it in a password manager or secure note.
 
-### 2. Upload Your Package to PyPI
+### 2. Upload the Package to PyPI
 
 ```sh
 cd ./new-python/
@@ -225,7 +225,7 @@ When prompted, enter the PyPI API token.
 
 ### 3. Verify on PyPI
 
-1. Visit your package page: [pypi.org/project/package_name/](https://pypi.org/project/package_name/)
+1. Visit the package page: [pypi.org/project/package_name/](https://pypi.org/project/package_name/)
 2. Check that:
     - README renders correctly (no broken Markdown)
     - All metadata is correct (version, author, license)
