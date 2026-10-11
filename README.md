@@ -8,4 +8,3 @@
 
 - [AUTHORS](AUTHORS) - List of repository authors and contributors.
 - [LICENSE](LICENSE) - The MIT License governing repository use and third-party dependency licenses.
-
