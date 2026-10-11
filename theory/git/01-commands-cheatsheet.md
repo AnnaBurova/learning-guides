@@ -15,7 +15,7 @@ git add <filename>       # Stages single file or regex to staging area
 git commit -m "Message"  # Record changes to repository with message
 git diff                 # Show changes between commits, commit and working tree, etc
 git diff --summary       # Summary of creations, renames and mode changes
-git diff --staged        # (--cached) Compares a stash and HEAD (already committed changes)
+git diff --staged        # (--cached) Compares staged changes and HEAD (last commit)
 
 # Save result to file:
 git diff --staged > changes.patch.diff.txt       # Compare staged changes
@@ -57,7 +57,7 @@ git restore --staged <filename>  # Unstage a file (keep changes in working direc
 ```sh
 git commit --date="2026-01-30 14:00:00" -m "Message"                # Set a custom date for commit
 git commit --date="2026-01-30T14:00:00" -m "Message" --allow-empty  # Empty commit on custom date
-git commit --date="2026-01-30T14:00:00" --amend --no-edit           # Change last commits date without changes
+git commit --date="2026-01-30T14:00:00" --amend --no-edit           # Change last commit's date without code changes
 ```
 
 ```sh
@@ -68,7 +68,7 @@ git commit --amend --no-edit --date="2026-01-30T14:00:00"
 
 ```sh
 GIT_AUTHOR_DATE        # set actual author timestamp
-GIT_COMMITTER_DATE     # set actual commiter timestamp
+GIT_COMMITTER_DATE     # set actual committer timestamp
 
 --amend                # rewrite last commit
 --no-edit              # keep same commit message
@@ -136,7 +136,7 @@ git branch -D feature/new-ui    # Force delete branch
 ## Remote Management
 
 ```sh
-git clone https://github.com/user/repo.git              # Clone a remote repositoryy into a new directory
+git clone https://github.com/user/repo.git              # Clone a remote repository into a new directory
 git remote -v                                           # Show remotes
 git remote add origin https://github.com/user/repo.git  # Add a new remote
 git remote rename origin upstream                       # Rename remote
@@ -155,17 +155,17 @@ git pull           # Merge changes directly (less clean history)
 ```sh
 git push                        # Push the current branch
 git push origin feature/new-ui  # Push a specific branch
-git push --force-with-lease     # Force push (wont overwrite teammates work)
-git push --force                # Force push (overwrite teammates work)
+git push --force-with-lease     # Force push (won't overwrite teammates' work)
+git push --force                # Force push (overwrites teammates' work)
 ```
 
-If `push --force`,
-git replaces branch on remote server with local branch, no matter what's there.
+With `git push --force`,
+Git replaces the branch on the remote server with the local branch, no matter what is there.
 
-If `push --force-with-lease`,
-git first checks whether remote branch still points to same commit last local fetched.
-If no one else has pushed, this push proceeds (safe).
-If someone else pushed new commits, Git refuses to push and gives warning.
+With `git push --force-with-lease`,
+Git first checks whether the remote branch still points to the same commit that was last fetched locally.
+If no one else has pushed, the push proceeds (safe).
+If someone else pushed new commits, Git refuses to push and shows a warning.
 
 ## Rebasing and History Cleanup
 
@@ -212,5 +212,5 @@ git push --tags                 # Push all tags to remote
 git push origin --force --tags  # Force push tags (use with caution)
 git push origin v1.0.0          # Push specific tag to remote
 git fetch --tags                # Fetch all tags from remote
-git checkout v1.0.0             # Checkout to tagged version
+git checkout v1.0.0             # Check out tagged version
 ```

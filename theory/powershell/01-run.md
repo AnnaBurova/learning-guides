@@ -81,7 +81,7 @@ should not leave their internal variables or functions in the current session.
 .\script_powershell.ps1
 ```
 
-- Runs in the scripts own scope.
+- Runs in the script's own scope.
 - Variables created inside the script are not available outside it.
 
 ## Saving Output to a Log File
@@ -101,7 +101,7 @@ This includes:
 
 ### `Tee-Object`
 
-The `Tee-Object` displays the output in the console and writes the same output to a file.
+`Tee-Object` displays the output in the console and writes the same output to a file.
 
 The name comes from the Unix `tee` command and refers to a T-shaped split:
 one input is sent to two outputs.
@@ -183,7 +183,8 @@ When running a script without redirection, for example:
 & '.\script_powershell.ps1'
 ```
 
-some output may appears in a different order than the commands in the script.
+some output may appear in a different order than the commands in the script.
+
 For example:
 
 - `Write-Host` messages may appear immediately.

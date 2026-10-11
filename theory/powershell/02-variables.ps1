@@ -47,9 +47,9 @@ Get-Variable
 # OR just
 # gv
 
-# 'gv' is an alias of 'Get-Variable'.
-# Alias can introduce possible problems and make scripts hard to maintain.
-# Please consider changing alias to its full content.
+# 'gv' is an alias for 'Get-Variable'.
+# Aliases can introduce problems and make scripts harder to maintain.
+# Consider replacing the alias with the full cmdlet name.
 
 Write-Host ""
 
@@ -199,11 +199,13 @@ Write-Host ""
 
 Write-Host "Stream 6:"
 Get-Variable -Name rootPath |
-    Format-List Name, Value
+    Format-List Name, Value |
+    Out-String |
+    Write-Host
 
 Write-Host ""
 
-# Do not write in the following form:
+# Do not write it in the following form:
 Get-Variable -Name $rootPath
 
 # In that expression, PowerShell evaluates $rootPath first
@@ -253,7 +255,7 @@ Write-Host "# Error[0].Exception | Format-List * -Force "
 Write-Host "# -----------------------------------------------------------------------------"
 Write-Host ""
 
-# Inspect the underlying .NET exception object from the first captured error.
+# Inspect the underlying .NET exception object from the most recent error.
 # This reveals low-level diagnostic information such as stack trace and inner exceptions.
 $Error[0].Exception | Format-List * -Force
 

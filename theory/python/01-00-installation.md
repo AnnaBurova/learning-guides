@@ -515,12 +515,12 @@ for each environment and review each package list.
 The optional helper removes every package reported by `pip freeze`
 without applying additional package filters.
 It processes all five global Python installations and all five virtual environments.
-nlike the manual steps, it does not pause for review before uninstalling;
-t creates package-list files in the current directory and uninstalls their contents automatically.
+Unlike the manual steps, it does not pause for review before uninstalling;
+it creates package-list files in the current directory and uninstalls their contents automatically.
 
 > Optional helper: [01-07-uninstall-non-core-packages.ps1](./01-07-uninstall-non-core-packages.ps1)
 
-## Quick reference for WSL
+## Quick Reference for WSL
 
 ```sh
 wsl --status

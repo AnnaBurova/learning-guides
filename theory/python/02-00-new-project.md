@@ -64,11 +64,11 @@ or import name used throughout the project.
 This file marks a directory as a Python package.
 While modern Python versions (3.12+) often handle this implicitly,
 including `__init__.py` remains crucial for defining and exposing the public API of the module
-(e.g., allowing users to import specific functions directly `from package_name import ...`).
+(e.g., allowing users to import specific functions directly with `from package_name import ...`).
 
 ### Requirements
 
-Aim to support the modern versions Python versions:
+Aim to support modern Python versions:
 
 - Python 3.15
 - Python 3.14
@@ -170,7 +170,7 @@ This helps catch packaging errors without risking the package name.
 ### 1. Create a TestPyPI Account
 
 1. Go to [test.pypi.org](https://test.pypi.org/).
-2. **Register** an account or Log in.
+2. **Register** an account or log in.
 3. Go to **Account Settings** -> **API Tokens**.
 4. Create a new token with **Upload** scope.
 
@@ -185,7 +185,7 @@ cd ./new-python-package/
 python -m twine upload --repository testpypi dist/*
 ```
 
-Enter API token when prompted.
+Enter the API token when prompted.
 
 ### 3. Install and Test from TestPyPI
 
@@ -205,7 +205,7 @@ Once testing is complete, publish to the main PyPI.
 ### 1. Create a PyPI Account
 
 1. Go to [pypi.org](https://pypi.org/).
-2. **Register** an account or Log in (same process as TestPyPI).
+2. **Register** an account or log in (same process as TestPyPI).
 3. Go to **Account Settings** -> **API Tokens**.
 4. Create a new token with **Upload** scope.
 

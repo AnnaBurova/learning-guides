@@ -1,8 +1,11 @@
 # Mount a Windows dynamic USB disk read-only in WSL2
 
-This guide connects a USB hard drive to WSL, assembles its Windows dynamic-disk (LDM) volume, and mounts the NTFS filesystem **read-only**.
+This guide connects a USB hard drive to WSL, assembles its Windows dynamic-disk (LDM) volume,
+and mounts the NTFS filesystem **read-only**.
 
-The commands below use device and volume identifiers. Recheck the USB bus ID and Linux disk name each time you reconnect the drive; do not assume they will always be the same values.
+The commands below use device and volume identifiers.
+Recheck the USB bus ID and Linux disk name each time you reconnect the drive;
+do not assume they will always be the same values.
 
 ## 1. Install usbipd-win
 
@@ -15,7 +18,8 @@ WinGet install --id dorssel.usbipd-win
 
 If `usbipd` is not found afterward, reopen PowerShell.
 
-The installer normally creates a Windows Firewall rule named `usbipd`, allowing local subnets to reach the service. You should not need to add another rule unless the connection is blocked.
+The installer normally creates a Windows Firewall rule named `usbipd`, allowing local subnets to reach the service.
+You should not need to add another rule unless the connection is blocked.
 
 ## 2. Find the USB device
 
@@ -25,20 +29,21 @@ Run in PowerShell:
 usbipd list
 ```
 
-Find USB storage adapter:
+Find the USB storage adapter:
 
 ```text
 VID:PID     DEVICE
 152d:0583   Запоминающее USB-устройство SCSI (UAS)
 ```
 
-Note its `BUSID`. In example:
+Note its `BUSID`. In this example:
 
 ```text
 2-3
 ```
 
-Close any Windows applications using the drive before attaching it to WSL. While attached to WSL, the device is unavailable to Windows.
+Close any Windows applications using the drive before attaching it to WSL.
+While attached to WSL, the device is unavailable to Windows.
 
 ## 3. Share the device with usbipd
 
@@ -49,7 +54,9 @@ usbipd bind --busid 2-3
 usbipd list
 ```
 
-`bind` registers the device as shared with usbipd so that a USB/IP client, including WSL, can attach to it. It does not mount the disk or attach it to Linux. Administrator privileges are required for this step; check `usbipd list` afterward to confirm that the device is shared.
+`bind` registers the device as shared with usbipd so that a USB/IP client, including WSL, can attach to it.
+It does not mount the disk or attach it to Linux. Administrator privileges are required for this step;
+check `usbipd list` afterward to confirm that the device is shared.
 
 Do not rely on the command printing a particular success message.
 
@@ -102,7 +109,9 @@ Then retry:
 usbipd attach --wsl --busid 2-3
 ```
 
-A third-party firewall or VPN can also interfere. If permitted by network policy, temporarily disconnect the VPN to test; do not disable the entire firewall. The usbipd project documents cases where another firewall blocked the connection despite the installed Windows rule.
+A third-party firewall or VPN can also interfere.
+If permitted by network policy, temporarily disconnect the VPN to test; do not disable the entire firewall.
+The usbipd project documents cases where another firewall blocked the connection despite the installed Windows rule.
 
 Do not use this command as a routine fix:
 
@@ -113,7 +122,9 @@ Set-NetFirewallHyperVVMSetting `
     -DefaultInboundAction Allow
 ```
 
-It changes the default inbound policy for WSL's Hyper-V firewall, not just access to usbipd. Microsoft documents it for allowing inbound connections to WSL; it is not equivalent to opening the Windows-host USB/IP service on TCP `3240`.
+It changes the default inbound policy for WSL's Hyper-V firewall, not just access to usbipd.
+Microsoft documents it for allowing inbound connections to WSL;
+it is not equivalent to opening the Windows-host USB/IP service on TCP `3240`.
 
 ## 5. Install the Linux tools
 
@@ -125,7 +136,9 @@ sudo apt update
 sudo apt install ldmtool ntfs-3g
 ```
 
-`ldmtool` reads Windows dynamic-disk metadata and creates Linux device-mapper devices for its volumes. Creating a mapping does not create or format a new Windows volume, and `ldmtool` does not modify the LDM metadata itself.
+`ldmtool` reads Windows dynamic-disk metadata and creates Linux device-mapper devices for its volumes.
+Creating a mapping does not create or format a new Windows volume,
+and `ldmtool` does not modify the LDM metadata itself.
 
 ## 6. Identify the physical disk
 
@@ -135,7 +148,7 @@ Inside WSL:
 lsblk -o NAME,SIZE,MODEL,FSTYPE,RO,MOUNTPOINTS
 ```
 
-Example showed:
+The example output shows:
 
 ```text
 sde      1.8T WDC WD20EZRZ-00Z5HB0
@@ -144,7 +157,8 @@ sde      1.8T WDC WD20EZRZ-00Z5HB0
 
 For the following commands, the external disk is `/dev/sde`.
 
-Verify the size, model, and mount points before continuing. Do not use the WSL system disk, and stop if any partition on the target disk is already mounted.
+Verify the size, model, and mount points before continuing.
+Do not use the WSL system disk, and stop if any partition on the target disk is already mounted.
 
 ## 7. Mark the disk read-only
 
@@ -203,7 +217,7 @@ sudo ldmtool show volume \
   626ed8b0-390c-11f1-aeda-047c16801bda Volume1
 ```
 
-Result identifies `Volume1` as `spanned`, with two extents:
+The result identifies `Volume1` as `spanned`, with two extents:
 
 ```json
 {
@@ -217,7 +231,8 @@ Result identifies `Volume1` as `spanned`, with two extents:
 }
 ```
 
-In output, the disk group lists one disk, `Disk1`, and both extent names reference it. Do not interpret the two listed extents as necessarily meaning two physical disks.
+In this output, the disk group lists one disk, `Disk1`, and both extent names reference it.
+Do not interpret the two listed extents as necessarily meaning two physical disks.
 
 ## 9. Create the Linux volume mapping
 
@@ -226,7 +241,7 @@ sudo ldmtool create volume \
   626ed8b0-390c-11f1-aeda-047c16801bda Volume1
 ```
 
-Expected output for disk:
+Expected output for the disk:
 
 ```json
 [
@@ -275,7 +290,8 @@ cd /mnt/hdd
 explorer.exe .
 ```
 
-If mounting fails, stop and inspect the error rather than formatting, initializing, or running repair commands on the disk.
+If mounting fails, stop and inspect the error rather than formatting, initializing,
+or running repair commands on the disk.
 
 ## 11. Unmount and detach
 
@@ -288,7 +304,8 @@ cd ~
 sudo umount /mnt/hdd
 ```
 
-If unmounting reports that the target is busy, close the remaining users of the folder and retry. Do not detach the USB device while the filesystem is still mounted.
+If unmounting reports that the target is busy, close the remaining users of the folder and retry.
+Do not detach the USB device while the filesystem is still mounted.
 
 After unmounting succeeds, run in Windows PowerShell:
 

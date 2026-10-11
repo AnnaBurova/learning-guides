@@ -96,11 +96,11 @@ Write-Host "LASTEXITCODE before reset: $LASTEXITCODE" -ForegroundColor Yellow
 # To reset it, run an external command that exits with code 0.
 # This updates $LASTEXITCODE while allowing the script to continue executing.
 # cmd - runs the Windows Command Prompt
-# /c - carry out next command and then terminate
+# /c - carry out the next command and then terminate
 # exit 0 - returns exit code `0` (success)
 cmd /c exit 0
 
-# Alternative (works but heavier, spawns a new PowerShell process):
+# Alternative (works, but is heavier because it spawns a new PowerShell process):
 # powershell -NoProfile -Command "exit 0"
 
 Write-Host "LASTEXITCODE  after reset: $LASTEXITCODE" -ForegroundColor Yellow
@@ -168,7 +168,7 @@ Write-Host ""
 Write-Host "# 5 " -ForegroundColor Cyan
 
 # Scenario:
-#     Get-Variable -Name missingVariable -ErrorAction SilentlyContinue
+#     Get-Variable -Name missingVariable
 #     If the requested variable does not exist, PowerShell displays an error.
 
 # Demonstrated using try / catch to keep output order predictable.
